@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&amp;family=Instrument+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  a { color: #C0512F; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  *:focus-visible { outline: 3px solid #C0512F; outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: #D69A3C; color: #232019; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #F4F0E8; border: 3px solid #C0512F; cursor: ew-resize; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: #F4F0E8; border: 3px solid #C0512F; cursor: ew-resize; }
+  @keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+    video[autoplay] { display: none !important; }
+  }
+  .devis-btn { position: relative; overflow: hidden; }
+  .devis-btn .devis-label { transition: opacity .45s ease; }
+  .devis-btn .devis-icon { position: absolute; right: 5px; top: 5px; bottom: 5px; width: 26px; border-radius: 7px; background: rgba(255,255,255,.18); display: grid; place-items: center; transition: width .45s ease; z-index: 1; }
+  .devis-btn:hover .devis-label { opacity: 0; }
+  .devis-btn:hover .devis-icon { width: calc(100% - 10px); }
+  .devis-btn:active .devis-icon { transform: scale(.95); }
+  .devis-btn .devis-icon svg { transition: transform .3s ease; }
+</style>
+</helmet>
+
+<div id="site-root" style="--chaux:#F4F0E8; --ink:#232019; --terra:#C0512F; --ocre:#D69A3C; --vert:#5E6B5A; --taupe:#B9AE9B; --radius:16px; background:var(--chaux); color:var(--ink); font-family:'Instrument Sans',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; max-width:100vw;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(244,240,232,.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--taupe);">
+    <nav style="max-width:1180px; margin:0 auto; padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="#top" style="display:flex; flex-direction:column; line-height:1; color:var(--ink);">
+        <span style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:19px; letter-spacing:-.02em;">Lezzi&nbsp;Luca</span>
+        <span style="font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--vert); font-weight:600; margin-top:3px;">Peintre en bâtiment</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; gap:6px;" data-navlinks="">
+          <a href="#savoir-faire" class="glass-navlink" style="position:relative; color:var(--ink); font-size:14px; font-weight:500; padding:10px 16px; border-radius:999px; text-decoration:none; background:rgba(255,255,255,.42); border:1px solid rgba(255,255,255,.65); box-shadow:0 1px 1px rgba(35,32,25,.05), inset 0 1px 0 rgba(255,255,255,.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s ease, box-shadow .25s ease, transform .25s ease;" style-hover="background:rgba(255,255,255,.7); box-shadow:0 6px 16px rgba(35,32,25,.1), inset 0 1px 0 rgba(255,255,255,.8); transform:translateY(-1px);">Savoir-faire</a>
+          <a href="#chantiers" class="glass-navlink" style="position:relative; color:var(--ink); font-size:14px; font-weight:500; padding:10px 16px; border-radius:999px; text-decoration:none; background:rgba(255,255,255,.42); border:1px solid rgba(255,255,255,.65); box-shadow:0 1px 1px rgba(35,32,25,.05), inset 0 1px 0 rgba(255,255,255,.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s ease, box-shadow .25s ease, transform .25s ease;" style-hover="background:rgba(255,255,255,.7); box-shadow:0 6px 16px rgba(35,32,25,.1), inset 0 1px 0 rgba(255,255,255,.8); transform:translateY(-1px);">Chantiers</a>
+          <a href="#services" class="glass-navlink" style="position:relative; color:var(--ink); font-size:14px; font-weight:500; padding:10px 16px; border-radius:999px; text-decoration:none; background:rgba(255,255,255,.42); border:1px solid rgba(255,255,255,.65); box-shadow:0 1px 1px rgba(35,32,25,.05), inset 0 1px 0 rgba(255,255,255,.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s ease, box-shadow .25s ease, transform .25s ease;" style-hover="background:rgba(255,255,255,.7); box-shadow:0 6px 16px rgba(35,32,25,.1), inset 0 1px 0 rgba(255,255,255,.8); transform:translateY(-1px);">Services</a>
+        </div>
+        <a href="#contact" class="devis-btn" style="background:var(--terra); color:#fff; font-weight:600; font-size:14px; padding:12px 44px 12px 18px; border-radius:10px; min-height:44px; display:inline-flex; align-items:center; text-decoration:none;"><span class="devis-label">Demander un devis</span><i class="devis-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></i></a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" style="position:relative; background:var(--ink); color:var(--chaux); min-height:min(112vh,1180px); display:flex; align-items:flex-end; overflow:hidden;">
+    <!-- VIDÉO — montage complet avec transitions intégrées · muette · autoplay -->
+    <video id="hero-video" autoplay="" muted="" playsinline="" preload="auto" poster="uploads/ChatGPT Image 20 juil. 2026, 19_15_31.png" aria-label="Le logo Lezzi Luca peint à l'écran" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:22% 50%; background:var(--ink); transform:scale(1); transform-origin:center bottom;">
+      <source src="uploads/Montage-video-peinture-logo-site-LL.mp4" type="video/mp4">
+    </video>
+    <!-- Voile dégradé côté droit pour fondre la main sortante -->
+    <div id="hero-veil" aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 40%, rgba(20,17,12,.55) 78%, rgba(20,17,12,.82) 100%); left: 2px; top: -3px"><div id="hero-veil-card" style="position: absolute; z-index: 2; max-width: min(52%,440px); padding: clamp(20px,2.6vw,30px); background: rgba(20,17,12,.34); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(244,240,232,.16); border-radius: 18px; box-shadow: 0 20px 50px rgba(0,0,0,.35); left: 41px; top: 27px; width: 547px; height: 198px">
+      <p style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(18px,2.1vw,24px); letter-spacing:-.02em; color:var(--chaux); margin:0 0 4px;">Entreprise-Peinture Lezzi Luca</p>
+      <p style="font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ocre); font-weight:600; margin:0 0 16px;">Peintre en bâtiment · depuis 2011</p>
+      <div style="display:grid; gap:9px; font-size:14px; line-height:1.35; color:#e6ddcf;">
+        <a href="tel:+41791283423" style="display:flex; align-items:center; gap:9px; color:var(--chaux); font-weight:600;"><span aria-hidden="true">☎</span> +41 79 128 34 23</a>
+        <a href="mailto:lezzipeinture@gmail.com" style="display:flex; align-items:center; gap:9px; color:var(--chaux); font-weight:600;"><span aria-hidden="true">✉</span> lezzipeinture@gmail.com</a>
+        <p style="display:flex; align-items:flex-start; gap:9px; margin:0;"><span aria-hidden="true">◉</span> La Russie 37, 2525 Le Landeron (NE)</p>
+      </div>
+    </div></div>
+    <!-- Panneau coordonnées flouté bas-droite : la main vient se cacher derrière -->
+    
+    <button id="hero-replay" type="button" onClick="{{ onReplay }}" aria-label="Relancer la vidéo" title="Relancer la vidéo" style="position:absolute; bottom:16px; left:16px; z-index:2; display:flex; align-items:center; gap:7px; background:rgba(20,17,12,.6); color:#F4F0E8; border:1px solid rgba(244,240,232,.3); border-radius:999px; padding:8px 14px 8px 12px; font-family:inherit; font-size:12px; font-weight:600; letter-spacing:.03em; cursor:pointer; backdrop-filter:blur(4px);" style-hover="background:rgba(192,81,47,.9); border-color:rgba(192,81,47,.9);">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+      Revoir
+    </button>
+  </section>
+
+  <!-- ============ INTRO (texte sous la vidéo) ============ -->
+  <section style="background:var(--ink); color:var(--chaux); border-top:1px solid #3a352d;">
+    <div style="max-width:1180px; margin:0 auto; padding:clamp(48px,7vw,80px) 22px clamp(56px,8vw,90px);">
+      <div style="max-width:760px;">
+        <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--ocre); font-weight:600; margin:0 0 18px;">Intérieur · Extérieur · Façade — {{ zone }}</p>
+        <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(38px,6vw,68px); line-height:1.02; letter-spacing:-.03em; margin:0 0 20px; text-wrap:balance;">Votre peintre de confiance pour intérieur, extérieur et façade.</h1>
+        <p style="font-size:clamp(16px,2.2vw,19px); line-height:1.55; color:#e6ddcf; max-width:580px; margin:0 0 32px;">Un devis rapide, un chantier propre et un résultat durable. J'interveniens pour les particuliers comme pour les professionnels avec un service clair et efficace.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+          <a href="#contact" class="devis-btn" style="background:var(--terra); color:#fff; font-weight:600; font-size:16px; padding:16px 52px 16px 26px; border-radius:12px; min-height:44px; display:inline-flex; align-items:center; text-decoration:none;"><span class="devis-label">Demander un devis gratuit</span><i class="devis-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></i></a>
+          <a href="#chantiers" style="position:relative; color:var(--chaux); font-weight:500; font-size:16px; padding:16px 24px; min-height:44px; display:inline-flex; align-items:center; border-radius:999px; text-decoration:none; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); box-shadow:0 1px 1px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.18); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s ease, box-shadow .25s ease, transform .25s ease;" style-hover="background:rgba(255,255,255,.2); box-shadow:0 6px 16px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.3); transform:translateY(-1px);">Voir des chantiers →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAVOIR-FAIRE ============ -->
+  <section id="savoir-faire" style="scroll-margin-top:80px; max-width:1180px; margin:0 auto; padding:clamp(64px,9vw,110px) 22px;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(32px,6vw,72px); align-items:start;">
+      <div>
+        <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); font-weight:600; margin:0 0 18px;">Le mot de l'artisan</p>
+        <p style="font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:clamp(24px,3.4vw,34px); line-height:1.25; letter-spacing:-.02em; margin:0 0 22px; text-wrap:pretty;">« Je peins comme si c'était chez moi. Un chantier propre, protégé, et je ne pars pas tant que le rendu ne me plaît pas à moi non plus. »</p>
+        <p style="font-size:16px; line-height:1.65; color:#4a4438; max-width:520px; margin:0;">Luca Lezzi accompagne chaque projet du premier conseil couleur au dernier coup de pinceau. Pas de finitions bâclées : un interlocuteur unique, des matériaux choisis pour tenir, et des explications claires à chaque étape.</p>
+      </div>
+      <div style="display:grid; gap:16px;">
+        <div style="border:1px solid var(--taupe); border-radius:16px; padding:26px; background:#fff;">
+          <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:44px; letter-spacing:-.03em; color:var(--terra); line-height:1;">15 ans</div>
+          <p style="margin:8px 0 0; color:#4a4438; font-size:15px;">de chantiers intérieurs et extérieurs, du studio à la façade d'immeuble.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div style="border:1px solid var(--taupe); border-radius:16px; padding:22px; background:#fff;">
+            <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; letter-spacing:-.02em; color:var(--vert); line-height:1;">Devis 48h</div>
+            <p style="margin:8px 0 0; color:#4a4438; font-size:14px;">Réponse rapide, chiffrage clair, sans engagement.</p>
+          </div>
+          <div style="border:1px solid var(--taupe); border-radius:16px; padding:22px; background:#fff;">
+            <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; letter-spacing:-.02em; color:var(--vert); line-height:1;">Garantie</div>
+            <p style="margin:8px 0 0; color:#4a4438; font-size:14px;">Chantier assuré et sécurisé.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHANTIERS (avant/après) ============ -->
+  <section id="chantiers" style="scroll-margin-top:80px; background:#efe9df; border-top:1px solid var(--taupe); border-bottom:1px solid var(--taupe);">
+    <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,9vw,110px) 22px;">
+      <div style="max-width:640px; margin:0 0 42px;">
+        <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); font-weight:600; margin:0 0 14px;">Chantiers réels</p>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:clamp(28px,4.4vw,44px); line-height:1.08; letter-spacing:-.025em; margin:0 0 12px;">Avant, après. Glissez pour voir.</h2>
+        <p style="font-size:16px; line-height:1.6; color:#4a4438; margin:0;">Des projets terminés, photographiés tels quels. Chaque rénovation avec sa pièce, ses travaux et sa durée.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:26px;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+          <article style="background:#fff; border:1px solid var(--taupe); border-radius:18px; overflow:hidden; display:flex; flex-direction:column;">
+            <div role="slider" tabindex="0" aria-label="Comparateur avant / après — {{ p.piece }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ p.pct }}" onPointerDown="{{ p.onDown }}" onKeyDown="{{ p.onKey }}" style="position:relative; aspect-ratio:4/3; background:var(--ink); user-select:none; touch-action:none; cursor:ew-resize;">
+              <!-- AVANT (base) -->
+              <div style="position:absolute; inset:0; background:{{ p.bgAvant }}; background-position:{{ p.posAvant }}; background-size:{{ p.sizeAvant }}; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+
+              </div>
+              <!-- APRÈS (clipped) -->
+              <div style="position:absolute; inset:0; clip-path:inset(0 {{ p.clip }} 0 0); background:{{ p.bgApres }}; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+                <span style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:15px; color:#2b1f12; letter-spacing:.02em; text-shadow:0 1px 4px rgba(0,0,0,.3);">{{ p.labelApres }}</span>
+              </div>
+              <span style="position:absolute; top:10px; left:10px; background:rgba(20,17,12,.72); color:#fff; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 9px; border-radius:6px; pointer-events:none;">Avant</span>
+              <span style="position:absolute; top:10px; right:10px; background:rgba(192,81,47,.92); color:#fff; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 9px; border-radius:6px; pointer-events:none;">Après</span>
+              <!-- poignée glissante -->
+              <div aria-hidden="true" style="position:absolute; top:0; bottom:0; left:calc({{ p.pct }}% - 1.5px); width:3px; background:#F4F0E8; box-shadow:0 0 0 1px rgba(0,0,0,.28); display:flex; align-items:center; justify-content:center; pointer-events:none;">
+                <div style="width:46px; height:46px; border-radius:50%; background:#F4F0E8; border:2px solid var(--terra); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 12px rgba(0,0,0,.4); transform:{{ p.handleTf }}; transition:transform .15s ease;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#232019" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 8 6 12 10 16"></polyline><polyline points="14 8 18 12 14 16"></polyline></svg>
+                </div>
+              </div>
+            </div>
+            <div style="padding:6px 20px 22px;">
+              <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:19px; letter-spacing:-.01em; margin:0 0 8px;">{{ p.piece }}</h3>
+              <p style="font-size:14px; color:#4a4438; margin:0 0 12px; line-height:1.5;">{{ p.travaux }}</p>
+              
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE (triste → coloré) ============ -->
+  <section aria-label="Ce que la peinture change" style="position:relative; background:var(--ink); color:var(--chaux); overflow:hidden;">
+    <div style="max-width:1180px; margin:0 auto; padding:clamp(64px,10vw,120px) 22px;">
+      <div role="slider" tabindex="0" aria-label="Révéler la pièce colorée — glissez du gris à la couleur" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ sigPct }}" onPointerDown="{{ onSigDown }}" onKeyDown="{{ onSigKey }}" style="position:relative; border-radius:22px; overflow:hidden; aspect-ratio:16/9; max-height:600px; user-select:none; touch-action:none; cursor:ew-resize; box-shadow:0 30px 80px rgba(0,0,0,.5);">
+        <!-- TRISTE (base, terne) -->
+        <img src="uploads/Man_sitting_in_armchair_dejected_202607171923.jpeg" alt="Homme assis seul, tête baissée, dans une pièce sombre aux murs fissurés avant travaux de peinture" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+        <!-- COLORÉ (clipped reveal) -->
+        <img src="uploads/Man_smiling_in_renovated_room_202607171923.jpeg" alt="Le même homme souriant, bras ouverts, dans la pièce repeinte en jaune chaleureux après rénovation" draggable="false" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; clip-path:inset(0 {{ sigClip }} 0 0); pointer-events:none;">
+        <span style="position:absolute; top:14px; left:14px; background:rgba(20,17,12,.72); color:#fff; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 10px; border-radius:6px; pointer-events:none;">Avant</span>
+        <span style="position:absolute; top:14px; right:14px; background:rgba(192,81,47,.92); color:#fff; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:5px 10px; border-radius:6px; pointer-events:none;">Après</span>
+        <!-- poignée glissante -->
+        <div aria-hidden="true" style="position:absolute; top:0; bottom:0; left:calc({{ sigPct }}% - 1.5px); width:3px; background:#F4F0E8; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+          <div style="width:52px; height:52px; border-radius:50%; background:#F4F0E8; border:2px solid var(--terra); display:flex; align-items:center; justify-content:center; box-shadow:0 3px 14px rgba(0,0,0,.5); transform:{{ sigHandleTf }}; transition:transform .15s ease;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#232019" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 8 6 12 10 16"></polyline><polyline points="14 8 18 12 14 16"></polyline></svg>
+          </div>
+        </div>
+        <!-- accroche overlay -->
+        <div style="position:absolute; left:0; right:0; bottom:0; padding:clamp(24px,5vw,54px); background:linear-gradient(to top,rgba(20,17,12,.85),transparent); pointer-events:none;">
+          <p style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:clamp(24px,4.6vw,52px); line-height:1.05; letter-spacing:-.025em; margin:0; max-width:16ch; text-wrap:balance;">{{ signatureLine }}</p>
+        </div>
+      </div>
+      <p style="margin:16px auto 0; max-width:560px; text-align:center; font-size:13px; color:var(--taupe);">Glissez la poignée du gris à la couleur</p>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" style="scroll-margin-top:80px; max-width:1180px; margin:0 auto; padding:clamp(64px,9vw,110px) 22px;">
+    <div style="max-width:640px; margin:0 0 42px;">
+      <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); font-weight:600; margin:0 0 14px;">Ce que je fais</p>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:clamp(28px,4.4vw,44px); line-height:1.08; letter-spacing:-.025em; margin:0;">Des prestations complètes, dedans comme dehors.</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <article style="border:1px solid var(--taupe); border-radius:16px; padding:28px; background:#fff; display:flex; flex-direction:column; gap:12px;">
+          <span aria-hidden="true" style="width:40px; height:40px; border-radius:10px; background:{{ s.dot }};"></span>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:20px; letter-spacing:-.01em; margin:0;">{{ s.titre }}</h3>
+          <p style="font-size:15px; color:#4a4438; line-height:1.55; margin:0;">{{ s.desc }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ RÉASSURANCE ============ -->
+  <section style="background:var(--vert); color:#f2f4ef;">
+    <div style="max-width:1180px; margin:0 auto; padding:clamp(56px,8vw,96px) 22px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; margin-bottom:52px;">
+        <div>
+          <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; opacity:.8; font-weight:600; margin:0 0 10px;">Zone d'intervention</p>
+          <p style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:24px; letter-spacing:-.01em; margin:0; line-height:1.2;">{{ zone }} et alentours (30 km)</p>
+        </div>
+        <div>
+          <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; opacity:.8; font-weight:600; margin:0 0 10px;">Garanties</p>
+          <p style="font-size:16px; line-height:1.6; margin:0;">Assurance décennale · devis détaillé et sans surprise · chantier protégé et nettoyé chaque soir.</p>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+        <sc-for list="{{ avis }}" as="a" hint-placeholder-count="3">
+          <figure style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:24px; margin:0;">
+            <div aria-hidden="true" style="color:var(--ocre); font-size:15px; letter-spacing:2px; margin-bottom:12px;">★★★★★</div>
+            <blockquote style="font-size:16px; line-height:1.55; margin:0 0 14px;">{{ a.texte }}</blockquote>
+            <figcaption style="font-size:14px; opacity:.85; font-weight:600;">— {{ a.nom }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" style="scroll-margin-top:80px; max-width:1180px; margin:0 auto; padding:clamp(64px,9vw,110px) 22px;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(36px,6vw,72px); align-items:start;">
+      <div>
+        <p style="font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); font-weight:600; margin:0 0 14px;">Parlons de votre projet</p>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:clamp(28px,4.4vw,44px); line-height:1.08; letter-spacing:-.025em; margin:0 0 20px;">Demandez votre devis gratuit</h2>
+        <p style="font-size:16px; line-height:1.6; color:#4a4438; margin:0 0 30px; max-width:440px;">Décrivez-moi la pièce ou la surface à peindre. Je vous rappelle sous 48h avec un premier chiffrage, sans engagement.</p>
+        <div style="display:grid; gap:14px;">
+          <a href="tel:+41791283423" style="display:flex; align-items:center; gap:12px; color:var(--ink); font-size:17px; font-weight:600;"><span aria-hidden="true" style="width:40px; height:40px; border-radius:10px; background:var(--terra); color:#fff; display:inline-flex; align-items:center; justify-content:center;">☎</span>+41 79 128 34 23</a>
+          <a href="mailto:lezzipeinture@gmail.com" style="display:flex; align-items:center; gap:12px; color:var(--ink); font-size:17px; font-weight:600;"><span aria-hidden="true" style="width:40px; height:40px; border-radius:10px; background:var(--vert); color:#fff; display:inline-flex; align-items:center; justify-content:center;">✉</span>lezzipeinture@gmail.com</a>
+          <p style="display:flex; align-items:flex-start; gap:12px; color:#4a4438; font-size:16px; margin:0;"><span aria-hidden="true" style="width:40px; height:40px; flex:none; border-radius:10px; background:var(--taupe); color:var(--ink); display:inline-flex; align-items:center; justify-content:center;">◎</span><span>La Russie 37, 2525 Le Landeron (NE)<br>Du lundi au vendredi</span></p>
+        </div>
+      </div>
+
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="border:2px solid var(--vert); background:#fff; border-radius:18px; padding:36px 30px; text-align:center;">
+          <div aria-hidden="true" style="width:56px; height:56px; border-radius:50%; background:var(--vert); color:#fff; font-size:28px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;">✓</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:24px; margin:0 0 10px;">Merci, c'est envoyé !</h3>
+          <p style="font-size:16px; color:#4a4438; margin:0;">Je reviens vers vous sous 48h avec un premier chiffrage.</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form novalidate="" onSubmit="{{ onSubmit }}" style="background:#fff; border:1px solid var(--taupe); border-radius:18px; padding:clamp(24px,4vw,36px); display:grid; gap:20px;">
+          <div style="display:grid; gap:7px;">
+            <label for="f-nom" style="font-size:14px; font-weight:600; color:var(--ink);">Votre nom <span style="color:var(--terra);">*</span></label>
+            <input id="f-nom" name="nom" type="text" value="{{ form.nom }}" onInput="{{ onField }}" autocomplete="name" aria-describedby="e-nom" style="font:inherit; font-size:16px; padding:13px 14px; border:1.5px solid {{ borderNom }}; border-radius:10px; min-height:44px; background:var(--chaux);">
+            <sc-if value="{{ errors.nom }}" hint-placeholder-val="{{ false }}"><span id="e-nom" style="font-size:13px; color:var(--terra); font-weight:500;">{{ errors.nom }}</span></sc-if>
+          </div>
+          <div style="display:grid; gap:7px;">
+            <label for="f-contact" style="font-size:14px; font-weight:600; color:var(--ink);">Téléphone ou e-mail <span style="color:var(--terra);">*</span></label>
+            <input id="f-contact" name="contact" type="text" value="{{ form.contact }}" onInput="{{ onField }}" autocomplete="email" aria-describedby="e-contact" style="font:inherit; font-size:16px; padding:13px 14px; border:1.5px solid {{ borderContact }}; border-radius:10px; min-height:44px; background:var(--chaux);">
+            <sc-if value="{{ errors.contact }}" hint-placeholder-val="{{ false }}"><span id="e-contact" style="font-size:13px; color:var(--terra); font-weight:500;">{{ errors.contact }}</span></sc-if>
+          </div>
+          <div style="display:grid; gap:7px;">
+            <label for="f-msg" style="font-size:14px; font-weight:600; color:var(--ink);">Votre projet <span style="color:var(--terra);">*</span></label>
+            <textarea id="f-msg" name="message" rows="4" value="{{ form.message }}" onInput="{{ onField }}" aria-describedby="e-msg" placeholder="Ex. repeindre un salon de 25 m², murs et plafond, blanc mat…" style="font:inherit; font-size:16px; padding:13px 14px; border:1.5px solid {{ borderMsg }}; border-radius:10px; background:var(--chaux); resize:vertical;"></textarea>
+            <sc-if value="{{ errors.message }}" hint-placeholder-val="{{ false }}"><span id="e-msg" style="font-size:13px; color:var(--terra); font-weight:500;">{{ errors.message }}</span></sc-if>
+          </div>
+          <button type="submit" class="devis-btn" style="background:var(--terra); color:#fff; font:inherit; font-weight:600; font-size:16px; border:none; padding:16px 52px 16px 16px; border-radius:12px; min-height:52px; cursor:pointer; position:relative;"><span class="devis-label">Envoyer ma demande de devis</span><i class="devis-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></i></button>
+          <p style="font-size:12px; color:#6a6252; margin:0; text-align:center;">Réponse sous 48h · aucune donnée revendue.</p>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:var(--ink); color:var(--taupe);">
+    <div style="max-width:1180px; margin:0 auto; padding:44px 22px; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between;">
+      <div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:18px; color:var(--chaux); letter-spacing:-.02em;">Entreprise-Peinture Lezzi Luca</div>
+        <p style="margin:6px 0 0; font-size:13px;">Peintre en bâtiment · La Russie 37, 2525 Le Landeron (NE) · +41 79 128 34 23</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px; font-size:14px;">
+        <a href="#" aria-label="Instagram" style="color:var(--taupe); display:inline-flex; align-items:center; transition:transform .25s ease, color .25s ease;" style-hover="color:var(--chaux); transform:translateY(-3px) rotate(-8deg) scale(1.15);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
+        <a href="#contact" style="color:var(--taupe);">Contact</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid #3a352d;">
+      <p style="max-width:1180px; margin:0 auto; padding:16px 22px; font-size:12px; color:#6a6252;">© 2026 Lezzi Luca — Mentions légales · Réalisé avec soin.</p>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;colInk&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#232019&quot;,&quot;options&quot;:[&quot;#232019&quot;,&quot;#1c2b2a&quot;,&quot;#2a2320&quot;,&quot;#20242b&quot;,&quot;#141110&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Palette&quot;},&quot;colTerra&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C0512F&quot;,&quot;options&quot;:[&quot;#C0512F&quot;,&quot;#B23A2E&quot;,&quot;#CC6A34&quot;,&quot;#A8452A&quot;,&quot;#D2691E&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Palette&quot;},&quot;colOcre&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#D69A3C&quot;,&quot;options&quot;:[&quot;#D69A3C&quot;,&quot;#E0A93F&quot;,&quot;#C98A2E&quot;,&quot;#E8B44E&quot;,&quot;#BFA05A&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Palette&quot;},&quot;colVert&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#556B6B&quot;,&quot;options&quot;:[&quot;#5E6B5A&quot;,&quot;#4C6B54&quot;,&quot;#6B7A5E&quot;,&quot;#556B6B&quot;,&quot;#3F5540&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Palette&quot;},&quot;colChaux&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F4F0E8&quot;,&quot;options&quot;:[&quot;#F4F0E8&quot;,&quot;#F6F2EA&quot;,&quot;#EFEADF&quot;,&quot;#FAF7F0&quot;,&quot;#EDE6D8&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Palette&quot;},&quot;crossfade&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.5,&quot;min&quot;:0.2,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Vidéo d'intro&quot;},&quot;videoSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.5,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.25,&quot;unit&quot;:&quot;×&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Vidéo d'intro&quot;},&quot;videoPaused&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Vidéo d'intro&quot;},&quot;videoStopAt&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5.45,&quot;min&quot;:1,&quot;max&quot;:5.87,&quot;step&quot;:0.05,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Vidéo d'intro&quot;},&quot;videoScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.12,&quot;min&quot;:1,&quot;max&quot;:1.6,&quot;step&quot;:0.02,&quot;unit&quot;:&quot;×&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Cadrage vidéo&quot;},&quot;videoFit&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;cover&quot;,&quot;options&quot;:[&quot;contain&quot;,&quot;cover&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Cadrage vidéo&quot;},&quot;videoPosX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:18,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Cadrage vidéo&quot;},&quot;videoPosY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Cadrage vidéo&quot;},&quot;heroHeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:95,&quot;min&quot;:60,&quot;max&quot;:130,&quot;step&quot;:1,&quot;unit&quot;:&quot;vh&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Cadrage vidéo&quot;},&quot;veilStrength&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.82,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ambiance&quot;},&quot;showVeilCard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ambiance&quot;},&quot;showReplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ambiance&quot;},&quot;cornerRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:32,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ambiance&quot;},&quot;signatureLine&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;On ne repeint pas des murs, on rallume des pièces.&quot;,&quot;options&quot;:[&quot;On ne repeint pas des murs, on rallume des pièces.&quot;,&quot;Un mur, ça change une vie plus qu'on ne croit.&quot;,&quot;La couleur ne se voit pas, elle se ressent.&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Signature&quot;}}">
+class Component extends DCLogic {
+  state = {
+    sliders: { c1: 50, c2: 50, c3: 50, c4: 50, c5: 50, c6: 50 },
+    sig: 42,
+    drag: null,
+    form: { nom: "", contact: "", message: "" },
+    errors: {},
+    sent: false,
+  };
+
+  onReplay = () => {
+    const a = document.getElementById("hero-video");
+    if (!a) return;
+    a.currentTime = 0;
+    a.play();
+  };
+
+  applyTweaks() {
+    const root = document.getElementById("site-root");
+    if (root) {
+      const set = (k, v) => { if (v) root.style.setProperty(k, v); };
+      set("--ink", this.props.colInk);
+      set("--terra", this.props.colTerra);
+      set("--ocre", this.props.colOcre);
+      set("--vert", this.props.colVert);
+      set("--chaux", this.props.colChaux);
+      if (this.props.cornerRadius != null) root.style.setProperty("--radius", this.props.cornerRadius + "px");
+    }
+    const hero = document.getElementById("top");
+    if (hero && this.props.heroHeight != null) hero.style.minHeight = "min(" + this.props.heroHeight + "vh,1180px)";
+    const hvid = document.getElementById("hero-video");
+    if (hvid) {
+      if (this.props.videoFit) hvid.style.objectFit = this.props.videoFit;
+      const px = this.props.videoPosX ?? 22, py = this.props.videoPosY ?? 50;
+      hvid.style.objectPosition = px + "% " + py + "%";
+      hvid.style.transform = "scale(" + (this.props.videoScale ?? 1) + ")";
+    }
+    const veil = document.getElementById("hero-veil");
+    if (veil && this.props.veilStrength != null) {
+      const a = this.props.veilStrength;
+      veil.style.background = "linear-gradient(90deg, transparent 40%, rgba(20,17,12," + (a * 0.67).toFixed(2) + ") 78%, rgba(20,17,12," + a.toFixed(2) + ") 100%)";
+    }
+    const card = document.getElementById("hero-veil-card");
+    if (card) card.style.display = this.props.showVeilCard === false ? "none" : "";
+    const replay = document.getElementById("hero-replay");
+    if (replay) replay.style.display = this.props.showReplay === false ? "none" : "";
+  }
+
+  componentDidUpdate(prev) {
+    this.applyTweaks();
+    if (prev.replayTrigger !== this.props.replayTrigger) this.onReplay();
+    const v = document.querySelector('video[aria-label="Le logo Lezzi Luca peint à l\'écran"]');
+    if (!v) return;
+    if (prev.videoPaused !== this.props.videoPaused) {
+      if (this.props.videoPaused) v.pause();
+      else v.play();
+    }
+    if (prev.videoTime !== this.props.videoTime && this.props.videoTime != null) {
+      this._stopped = true; // le scrub manuel prime sur l'arrêt auto
+      v.pause();
+      v.currentTime = this.props.videoTime;
+    }
+  }
+
+  componentDidMount() {
+    this.applyTweaks();
+    const v = document.getElementById("hero-video");
+    this._active = v;
+    if (v) {
+      v.muted = true;
+      v.addEventListener("loadeddata", () => { if (v.paused && !this.props.videoPaused) v.play().catch(() => {}); }, { once: true });
+      if (this.props.videoPaused) v.pause();
+      if (this.props.videoTime != null) {
+        const applyTime = () => { this._stopped = true; v.pause(); v.currentTime = this.props.videoTime; };
+        if (v.readyState >= 1) applyTime();
+        else v.addEventListener("loadedmetadata", applyTime, { once: true });
+      }
+    }
+    this._move = (e) => {
+      if (this.dragKey == null || !this.dragEl) return;
+      e.preventDefault();
+      this.setPos(this.dragKey, this.posFrom(this.dragEl, e.clientX));
+    };
+    this._up = () => {
+      if (this.dragKey != null) {
+        this.dragKey = null;
+        this.dragEl = null;
+        this.setState({ drag: null });
+      }
+    };
+    window.addEventListener("pointermove", this._move, { passive: false });
+    window.addEventListener("pointerup", this._up);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("pointermove", this._move);
+    window.removeEventListener("pointerup", this._up);
+  }
+
+  posFrom(el, clientX) {
+    const r = el.getBoundingClientRect();
+    return ((clientX - r.left) / r.width) * 100;
+  }
+
+  setPos(key, val) {
+    val = Math.max(0, Math.min(100, val));
+    if (key === "sig") this.setState({ sig: val });
+    else this.setState((s) => ({ sliders: { ...s.sliders, [key]: val } }));
+  }
+
+  startDrag = (key) => (e) => {
+    this.dragEl = e.currentTarget;
+    this.dragKey = key;
+    this.setState({ drag: key });
+    this.setPos(key, this.posFrom(this.dragEl, e.clientX));
+  };
+
+  onKeySlide = (key) => (e) => {
+    const cur = key === "sig" ? this.state.sig : this.state.sliders[key];
+    let nv = cur;
+    if (e.key === "ArrowLeft") nv = cur - 4;
+    else if (e.key === "ArrowRight") nv = cur + 4;
+    else if (e.key === "Home") nv = 0;
+    else if (e.key === "End") nv = 100;
+    else return;
+    e.preventDefault();
+    this.setPos(key, nv);
+  };
+
+  onField = (e) => {
+    const { name, value } = e.currentTarget;
+    this.setState((s) => {
+      const errors = { ...s.errors };
+      delete errors[name];
+      return { form: { ...s.form, [name]: value }, errors };
+    });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { nom, contact, message } = this.state.form;
+    const errors = {};
+    if (!nom.trim()) errors.nom = "Merci d'indiquer votre nom.";
+    if (!contact.trim()) errors.contact = "Un téléphone ou un e-mail pour vous recontacter.";
+    else if (!/^[\d\s+.()-]{8,}$/.test(contact) && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact.trim()))
+      errors.contact = "Indiquez un téléphone ou un e-mail valide.";
+    if (!message.trim()) errors.message = "Décrivez brièvement votre projet.";
+    if (Object.keys(errors).length) {
+      this.setState({ errors });
+      const first = document.getElementById("f-" + (errors.nom ? "nom" : errors.contact ? "contact" : "msg"));
+      if (first) first.focus();
+      return;
+    }
+    this.setState({ sent: true, errors: {} });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const line =
+      this.props.signatureLine ??
+      "On ne repeint pas des murs, on rallume des pièces.";
+    const projects = [
+      { id: "c1", piece: "Salon familial", travaux: "Murs et plafond repeints, boiseries laquées, teinte chaude sur mesure.", duree: "3 jours", altAvant: "AVANT — salon terne", altApres: "APRÈS — salon rénové" },
+      { id: "c2", piece: "Façade de maison", travaux: "Ravalement complet, traitement anti-mousse et enduit de finition.", duree: "6 jours", altAvant: "AVANT — façade grisée", altApres: "APRÈS — façade ravalée" },
+      { id: "c3", piece: "Chambre d'enfant", travaux: "Préparation des supports, deux couches mates, finition propre et nette.", duree: "2 jours", altAvant: "AVANT — chambre défraîchie", altApres: "APRÈS — chambre repeinte" },
+      { id: "c4", piece: "Faux plafond", travaux: "Dépose de l'ancien plafond, pose d'un faux plafond.", duree: "2 jours", altAvant: "AVANT — plafond brut, chantier ouvert", altApres: "APRÈS — faux plafond fini avec éclairage", imgAvant: "uploads/faux-plafond-avant.jpg", imgApres: "uploads/faux-plafond-apres.jpg", posAvant: "center 80%", sizeAvant: "160%" },
+      { id: "c5", piece: "Faux plafond ", travaux: "Pose d'un faux plafond, finition nette.", duree: "2 jours", altAvant: "AVANT — plafond endommagé, travaux en cours", altApres: "APRÈS — faux plafond fini avec spots encastrés", imgAvant: "uploads/faux-plafond-avant2.jpg", imgApres: "uploads/faux-plafond-apres2.jpg" },
+      { id: "c6", piece: "Escalier extérieure", travaux: "Décapage du revêtement abîmé, ratissage et peinture de finition sur mur extérieur d'escalier.", duree: "3 jours", altAvant: "AVANT — revêtement décappé, gravats sur les marches", altApres: "APRÈS — mur repeint en blanc, escalier propre", imgAvant: "uploads/649948895_17878096677508752_4463038810681986335_n.jpg", imgApres: "uploads/649666417_17878096707508752_6613560108224048239_n.jpg" },
+    ].map((p) => {
+      const pct = s.sliders[p.id];
+      return {
+        ...p,
+        pct,
+        bgAvant: p.imgAvant ? "url('" + p.imgAvant + "') no-repeat" : "linear-gradient(150deg,#5b666f,#454f57)",
+        posAvant: p.posAvant || "center",
+        sizeAvant: p.sizeAvant || "cover",
+        bgApres: p.imgApres ? "url('" + p.imgApres + "') center/cover no-repeat" : "linear-gradient(150deg,#d98b3f,#c0512f)",
+        labelAvant: p.imgAvant ? "" : p.piece,
+        labelApres: p.imgApres ? "" : p.piece,
+        clip: (100 - pct) + "%",
+        handleTf: s.drag === p.id ? "scale(1.12)" : "scale(1)",
+        onDown: this.startDrag(p.id),
+        onKey: this.onKeySlide(p.id),
+      };
+    });
+
+    const err = (k) => (s.errors[k] ? "#C0512F" : "#B9AE9B");
+
+    return {
+      zone: "Le Landeron & Littoral neuchâtelois",
+      signatureLine: line,
+      projects,
+      onSigDown: this.startDrag("sig"),
+      onSigKey: this.onKeySlide("sig"),
+      sigPct: s.sig,
+      sigClip: (100 - s.sig) + "%",
+      sigHandleTf: s.drag === "sig" ? "scale(1.12)" : "scale(1)",
+      onReplay: this.onReplay,
+      services: [
+        { titre: "Peinture intérieure", desc: "Murs, plafonds, boiseries. Préparation soignée des supports pour un rendu net et durable.", dot: "#C0512F" },
+        { titre: "Peinture extérieure", desc: "Volets, portails, terrasses et menuiseries protégés contre les intempéries.", dot: "#D69A3C" },
+        { titre: "Ravalement de façade", desc: "Nettoyage, traitement, enduit et mise en peinture pour une façade qui tient dans le temps.", dot: "#5E6B5A" },
+        { titre: "Pros & tertiaire", desc: "Bureaux, commerces, parties communes. Interventions planifiées pour limiter la gêne.", dot: "#232019" },
+      ],
+      avis: [
+        { texte: "Travail impeccable et chantier laissé propre chaque soir. On a vraiment senti quelqu'un de consciencieux.", nom: "Camille R., particulier" },
+        { texte: "Devis clair, délais tenus, résultat au-delà de nos attentes sur la façade. Je recommande sans hésiter.", nom: "Bruno M., copropriété" },
+        { texte: "De bon conseil sur les teintes, très à l'écoute. Notre salon a complètement changé d'ambiance.", nom: "Sofia L., particulier" },
+      ],
+      form: s.form,
+      errors: s.errors,
+      onField: this.onField,
+      onSubmit: this.onSubmit,
+      sent: s.sent,
+      notSent: !s.sent,
+      borderNom: err("nom"),
+      borderContact: err("contact"),
+      borderMsg: err("message"),
+    };
+  }
+}
+</script>
+</body>
+</html>
