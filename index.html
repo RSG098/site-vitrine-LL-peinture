@@ -60,7 +60,7 @@
     .nav-devis-btn { padding: 12px 40px 12px 14px !important; }
   }
   @media (min-width: 761px) and (max-width: 1024px) {
-    #top { min-height: min(70vh, 720px) !important; }
+    #top { min-height: min(70dvh, 720px) !important; }
   }
   .mobile-contact-strip { display: none; }
 </style>
@@ -97,9 +97,9 @@
   </header>
 
   <!-- ============ HERO ============ -->
-  <section id="top" style="position:relative; background:var(--ink); color:var(--chaux); min-height:min(112vh,1180px); display:flex; align-items:flex-end; overflow:hidden;">
+  <section id="top" style="position:relative; background:var(--ink); color:var(--chaux); min-height:min(112dvh,1180px); display:flex; align-items:flex-end; overflow:hidden;">
     <!-- VIDÉO — montage complet avec transitions intégrées · muette · autoplay -->
-    <video id="hero-video" autoplay="" muted="" playsinline="" preload="metadata" poster="uploads/hero-poster.webp" aria-label="Le logo Lezzi Luca peint à l'écran" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:50% 50%; background:var(--ink); transform:scale(1); transform-origin:center bottom; display:block; border:0; padding:0; margin:0;">
+    <video id="hero-video" autoplay="" muted="" playsinline="" preload="auto" poster="uploads/hero-poster.webp" aria-label="Le logo Lezzi Luca peint à l'écran" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:50% 50%; background:var(--ink); transform:scale(1); transform-origin:center bottom; display:block; border:0; padding:0; margin:0;">
       <source src="uploads/Montage-video-peinture-logo-site-LL-compressed.mp4" type="video/mp4">
     </video>
     <!-- Voile dégradé côté droit pour fondre la main sortante -->
@@ -369,7 +369,7 @@ class Component extends DCLogic {
       if (this.props.cornerRadius != null) root.style.setProperty("--radius", this.props.cornerRadius + "px");
     }
     const hero = document.getElementById("top");
-    if (hero && this.props.heroHeight != null) hero.style.minHeight = "min(" + this.props.heroHeight + "vh,1180px)";
+    if (hero && this.props.heroHeight != null) hero.style.minHeight = "min(" + this.props.heroHeight + "dvh,1180px)";
     const hvid = document.getElementById("hero-video");
     if (hvid) {
       if (this.props.videoFit) hvid.style.objectFit = this.props.videoFit;
